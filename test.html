@@ -7,7 +7,7 @@
 	<!-- Add Custom Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Patua+One|Raleway" rel="stylesheet">
 	<!-- Add Custom Styles -->
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 	<div class="container">
@@ -16,7 +16,8 @@
 	  <h1 class="display-3">Events Around</h1>
 	  <p class="lead">Search for events in your area</p>
 	</div>
-  	
+ 
+
   	<div class="row">
 		<div class="col-md-6">
 			<div class="card">
@@ -24,13 +25,14 @@
 				    Event Search
 			  	</div>
 				<div class="card-block">
+				<!-- input name attributes must match ticketmaster API parameter names for .serialize to work -->
 					<form id="event-search-form">
 						<div class="form-group">
 							<label for="search-keyword">Keywords</label>
-							<input type="text" class="form-control" id="search-keyword" type="text">
+							<input type="text" class="form-control" name="keyword" id="search-keyword" type="text">
 						</div>
 						<div class="form-group">
-							<label for="location">Location</label>
+							<label for="search-location">Location</label>
 							<input type="text" class="form-control" id="search-location" type="text">
 						</div>
 						<div class="form-group">
@@ -42,8 +44,8 @@
 							<input type="text" class="form-control" id="search-date" type="date">
 						</div>
 						<div class="form-group">
-							<label for="radius">Radius</label>
-							<input type="text" class="form-control" id="radius" type="number">
+							<label for="search-radius">Radius</label>
+							<input type="text" class="form-control" id="search-radius" type="number">
 						</div>
 						<button class="btn btn-primary" id="submit-event-search" type="submit">Submit</button>
 					</form>
@@ -78,67 +80,33 @@
 							<label for="comments">Comments</label>
 							<input type="text" class="form-control" id="comments" type="number">
 						</div>
-						<button class="btn btn-primary" id="submit-add-event" type="submit">Submit</button>
+						<button class="btn btn-primary" id="submit-event-add" type="submit">Submit</button>
 					</form>
 				</div>
 			</div>
 		</div>
-		
-		<div class="col-md-6">
+	</div>
+	<div class="row">
+		<div class="col-md-12">
 			<div class="card">
 				<div class="card-header">
-				    Event Search
-			  	</div>
-				<div class="card-block">
-					<form id="event-search-form">
-						<div class="form-group">
-							<label for="search-keyword">Keywords</label>
-							<input type="text" class="form-control" id="search-keyword" type="text">
-						</div>
-						<div class="form-group">
-							<label for="location">Location</label>
-							<input type="text" class="form-control" id="search-location" type="text">
-						</div>
-						<div class="form-group">
-							<label for="search-time">Time</label>
-							<input type="text" class="form-control" id="search-time" type="text">
-						</div>
-						<div class="form-group">
-							<label for="search-date">Date</label>
-							<input type="text" class="form-control" id="search-date" type="date">
-						</div>
-						<div class="form-group">
-							<label for="radius">Radius</label>
-							<input type="text" class="form-control" id="radius" type="number">
-						</div>
-						<button class="btn btn-primary" id="submit-event-search" type="submit">Submit</button>
-					</form>
-				</div>
-			</div>
-		</div>
-
-
-
-		<div class="card">
-			<div class="card-header">
 					Nearby Events
+  				</div>
+  			<div class="card-block">
+	    		<table class="table">
+					<thead>
+					    <tr>
+					      <th>Event</th>
+					      <th>Location</th>
+					      <th>Time</th>
+					    </tr>
+					</thead>
+			  		<tbody id="event-table">
+						<!-- event information inserted here -->
+			  		</tbody>
+					</table>
   			</div>
-  		<div class="card-block">
-	    	<table class="table">
-				  <thead>
-				    <tr>
-				      <th>Train Name</th>
-				      <th>Destination</th>
-				      <th>Frequency</th>
-				      <th>Next Arrival</th>
-				      <th>Minutes Away</th>
-				    </tr>
-				  </thead>
-				  <tbody id="train-table">
-						<!-- train information inserted here -->
-		  		</tbody>
-				</table>
-	  	</div>
+  		</div>	
   	</div>
 </div>
 
@@ -153,7 +121,9 @@
 <!-- Add Moment -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
 <!-- Add Custom Javascript file -->
-<script src="/assets/javascript/testEvents.js"></script>
-<script src="/assets/javascript/events.js"></script>
+<!-- <script src="assets/javascript/testEvents.js"></script> -->
+
+<script src="assets/javascript/maps.js"></script>
+<script src="assets/javascript/events.js"></script>
 </body>
 </html>

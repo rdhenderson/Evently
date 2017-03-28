@@ -1,11 +1,11 @@
 // Initialize Firebase and return database object  
 function initFirebase () {
   var config = {
-    apiKey: "AIzaSyCegJmjSA5rJw-NG-8PNYPZldewxreIufw",
-    authDomain: "traintracker-843d1.firebaseapp.com",
-    databaseURL: "https://traintracker-843d1.firebaseio.com",
-    storageBucket: "traintracker-843d1.appspot.com",
-    messagingSenderId: "260086219924"
+    apiKey: "AIzaSyB0piqpO8W3AzFu6u4xbep-i8IgkXZoauk",
+    authDomain: "evently-f4023.firebaseapp.com",
+    databaseURL: "https://evently-f4023.firebaseio.com",
+    storageBucket: "evently-f4023.appspot.com",
+    messagingSenderId: "526670907047"
   };
 
   firebase.initializeApp(config);
@@ -51,7 +51,7 @@ $(document).on('click', '.remove-train', function(e) {
 function removeTrain(train){
   var key = $(this).attr("data-key");
   console.log("attempting removal of " + key);
-  console.log(key);
+  console.log(this);
   //database.ref('trains').child(key).remove();
 
 
@@ -79,7 +79,6 @@ $(".remove-train").addEvent = removeTrain;
 }
 
 //MAIN SECTION OF CODE --- INITIAL EXECUTION
-//var count = 0;
 var database = initFirebase();
 
 //Write initial data to table and listen for additions

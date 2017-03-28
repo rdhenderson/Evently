@@ -61,16 +61,40 @@ function Event (name, location, startTime, endTime, comments, eventObj) {
   eventArr.push(this);
 } // This format seems overly complicated, discuss whether to use this or simple object creation
 
+//Return search string from input forms
+function getSearchString() {
+	var apiKey = "AA07uZLT1s2Uo0SkmMNcHV4kz22ivu4V";
+	
+	var keyword = $("#search-keyword").val().trim();
+	var startTime = $("#search-time").val().trim();
+	var location = $("#search-location").val().trim();
+	var date = $("#search-date").val().trim();
+	var radius = $("#search-radius").val().trim();
+
+	//build date/time string
+	//if date field is blank, assume current date
+	if (!date) {
+		var currDate = moment(startTime);
+		date = currDate.format();
+		console.log(date);
+	} else {
+
+	}
+	//Get lat/long from GoogleMaps API
+
+
+
+	return "keyword=theater&stateCode=DC&startDateTime=2017-03-25T15:00:00Z&apikey=" + apiKey;
+
+}
 
 //Ticket Master API documentation: http://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
 // ASYNCH AJAX CALL WITHIN FUNCTION
 function getTicketMasterEvents() {
-	var apiKey = "AA07uZLT1s2Uo0SkmMNcHV4kz22ivu4V";
-	var dummySearchString = "keyword=theater&stateCode=DC&startDateTime=2017-03-25T15:00:00Z";
-	var searchString = $("#event-search-form > input").serialize();
-	console.log(searchString);
+	
+	var searchString = getSearchString();
 
-	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?" + dummySearchString + "&apikey=" + apiKey;
+	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?" + searchString;
 	console.log("queryURL")
 	$.ajax({
 		url: queryURL, 
@@ -93,8 +117,8 @@ function getTicketMasterEvents() {
 // CLICK HANDLERS FOR HTML ELEMENTS =
 //===================================
 
-// Capture event submission and push event to database
-$("#submit-add-event").on("click", function(event) {
+// Capture ADD EVENT submission and push event to database
+$("#submit-event-add").on("click", function(event) {
       event.preventDefault();
 
       //Call constructor to create a new event object, also pushes to eventArr
@@ -113,13 +137,24 @@ $("#submit-add-event").on("click", function(event) {
       writeEvent(newEvent);
 });
 
+// Capture SEARCH EVENT submission and call API search
+$("#submit-event-search").on("click", function(event) {
+      //Prevent default action on "submit" type 
+      event.preventDefault();
+   
+
+      //Call api search through ticket master
+      getTicketMasterEvents();
+
+});
+
 
 //MAIN SECTION OF CODE --- INITIAL EXECUTION
 var database = initFirebase();
 //Empty global array to be populated with events pulled from search
 var eventArr = [];
 //getEventfulEvents();
-getTicketMasterEvents();
+//getTicketMasterEvents();
 
 
 

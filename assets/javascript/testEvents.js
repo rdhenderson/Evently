@@ -51,7 +51,7 @@ $(document).on('click', '.remove-train', function(e) {
 function removeTrain(train){
   var key = $(this).attr("data-key");
   console.log("attempting removal of " + key);
-  console.log(this);
+  console.log(key);
   //database.ref('trains').child(key).remove();
 
 

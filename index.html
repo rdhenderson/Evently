@@ -25,22 +25,31 @@
             <ul class="navbar-nav mr-auto mt-2 mt-md-0"></ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="text" placeholder=""/>
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
+           <!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+            <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search for the Events
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#">Search</a></li>
+    <li><a href="#">Advanced Search</a></li>
+  </ul>
+</div>
+ </div>
     </nav>
     <div id="main-container" class="container">
         <section class="main-selection">
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top" src="" alt="Card image cap">
+            <div class="card" style="width: 65rem;">
+            <img class="card-img-top" src="..." alt="Card image cap">
                 <div class="card-block">
                     <h4 class="card-title">Event Name</h4>
                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Start Time</li>
-                    <li class="list-group-item">End Time</li>
+                    <li class="list-group-item">Date</li>
+                    <li class="list-group-item">Time</li>
                 </ul>
+
             </div>
         </section>
         <!--  Results Section   -->

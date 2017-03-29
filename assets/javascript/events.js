@@ -30,6 +30,7 @@ function writeNewObj (dataObj, itemPath) {
   return firebase.database().ref().update(updates);
 }
 
+
 function getEventfulEvents() {
 	var apiKey = "B3rvtFwc45vjtTFK";
 	var searchString = "q=music"; 
@@ -175,6 +176,7 @@ $("#submit-event-search").on("click", function(event) {
 });
 
 
+
 //MAIN SECTION OF CODE --- INITIAL EXECUTION
 
 //Initialize Firebase database
@@ -183,7 +185,24 @@ var database = initFirebase();
 //GOOGLEMAPS global geocoder variable
 var geocoder;
 
+
 //Empty global array to be populated with events pulled from search
 var eventArr = [];
+
+
+// Creating a click function for submit-event-search
+//   $("#submit-event-search").on("click", function(event) {
+//   event.preventDefault();
+
+//   var user = {
+//     "keywords" : $("#search-keyword").val().trim(),
+//     "location" : $("#search-location").val().trim(),
+//     "time" : $("#search-time").val().trim(),
+//     "date" : $("#search-date").val().trim(),
+//     "radius" : $("#radius").val().trim(),
+//   };
+//   $("#event-search-form : input").val("");
+  
+// });
 
 

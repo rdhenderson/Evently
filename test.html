@@ -17,7 +17,11 @@
 	  <p class="lead">Search for events in your area</p>
 	</div>
  
-
+ <!-- <div id="map" style="width: 320px; height: 480px;"></div>
+  <div>
+    <input id="address" type="textbox" value="Sydney, NSW">
+    <input type="button" value="Encode" onclick="codeAddress()">
+</div> -->
   	<div class="row">
 		<div class="col-md-6">
 			<div class="card">
@@ -120,10 +124,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <!-- Add Moment -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+
+<!-- Add Google Map API (with api key included) -->
 <!-- Add Custom Javascript file -->
 <!-- <script src="assets/javascript/testEvents.js"></script> -->
 
 <script src="assets/javascript/maps.js"></script>
 <script src="assets/javascript/events.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr_I5lOUITIzV8Y77Zo_G_q4iXMm208cs&&callback=initGoogleMaps" async defer></script>
+	
 </body>
 </html>

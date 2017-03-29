@@ -12,6 +12,13 @@ function initFirebase () {
   return firebase.database();
 }
 
+//Initialize google maps geocode service
+function initGoogleMaps() {
+  //geocoder is declared in global scope
+  geocoder = new google.maps.Geocoder();
+}
+
+
 //Write new object to designated path
 function writeNewObj (dataObj, itemPath) {
   // Get a key for a new User.
@@ -39,7 +46,6 @@ function getEventfulEvents() {
 }
 //Add event to event-display-table element
 function writeEvent(event){
-
   //Insert row into Event Table with event information 
   $("#event-table").append( '<tr><td>'  + event.name + 
                             '</td><td>' + event.location + 
@@ -61,7 +67,7 @@ function Event (name, location, startTime, endTime, comments, eventObj) {
   eventArr.push(this);
 } // This format seems overly complicated, discuss whether to use this or simple object creation
 
-//Return search string from input forms
+//Construct Search String and call TicketmasterAPI for event listing
 function getSearchString() {
 	var apiKey = "AA07uZLT1s2Uo0SkmMNcHV4kz22ivu4V";
 	
@@ -73,43 +79,65 @@ function getSearchString() {
 
 	//build date/time string
 	//if date field is blank, assume current date
-	if (!date) {
-		var currDate = moment(startTime);
-		date = currDate.format();
-		console.log(date);
+	
+	//Pull date and time into moment from search strings.  If fields blank, should default to current date and/or current time
+	if(startTime && date) {
+		var time = moment(date + " " + startTime);
+	} else if (startTime) {
+		var time = moment(startTime, "HH:mm a");
+	} else if (date) {
+		var time = moment(date, "MM/DD/YYYY");
 	} else {
-
+		var time = moment();
 	}
-	//Get lat/long from GoogleMaps API
 
+	//var searchDateTime = time.format("YYYY-MM-DD") + "T" + time.format("HH:mm:ss") + "Z";
+	var searchDateTime = time.format("YYYY-MM-DDTHH:mm:ssZ");
+	
+	var searchString = "keyword=" + keyword + "&startDateTime=" + searchDateTime + "&radius=" + radius + "&apikey=" + apiKey;
 
+	//Get search location coordinates from google maps geocode API
+	if (location === "current location") {
+		navigator.geolocation.getCurrentPosition(function(position) {
+	  		latLng = position.coords.latitude + "," + position.coords.longitude;
+	  		searchString += "&latlong=" + latLng;
+	  		//Search for events with current location
+	  		getTicketMasterEvents(searchString);
 
-	return "keyword=theater&stateCode=DC&startDateTime=2017-03-25T15:00:00Z&apikey=" + apiKey;
+		});
+	} else {
+		geocoder.geocode( { 'address': location}, function(results, status) {
+		    if (status == 'OK') {
+		      var latLng = results[0].geometry.location.lat() + "," + results[0].geometry.location.lng();
+		    } else {
+		    	//IF GEOCODE FAILS, RETURN WASHINGTON DC COORDINATES
+		      alert('Geocode was not successful for the following reason: ' + status);
+		      var latLng = "38.9072, 77.0369"; 
+		    }  
 
-}
+	  		searchString += "&latlong=" + latLng;
+			getTicketMasterEvents(searchString);
+		});
+	}
+}	
 
 //Ticket Master API documentation: http://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/
 // ASYNCH AJAX CALL WITHIN FUNCTION
-function getTicketMasterEvents() {
-	
-	var searchString = getSearchString();
-
+function getTicketMasterEvents(searchString) {
 	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?" + searchString;
-	console.log("queryURL")
+	console.log(queryURL);
 	$.ajax({
 		url: queryURL, 
 		method: "GET"
 		}).done(function(response){
 		 var resultArr = response._embedded.events;
 		 for(var i=0; i<resultArr.length; i++) {
-		 	console.log(resultArr[i]);
 		 	//Add event information to global event array
 		 	eventArr.push(new Event(resultArr[i].name, resultArr[i]._embedded.venues[0].name, resultArr[i].dates.start.localTime, "", resultArr[i]));
 		 	//Draw last event in event array to html table
 		 	writeEvent(eventArr[eventArr.length-1]);
-		 	console.log(eventArr[i]);
 		 }
-		 console.log(eventArr);
+		 console.log(resultArr);
 	});
 }
      
@@ -141,20 +169,21 @@ $("#submit-event-add").on("click", function(event) {
 $("#submit-event-search").on("click", function(event) {
       //Prevent default action on "submit" type 
       event.preventDefault();
-   
-
-      //Call api search through ticket master
-      getTicketMasterEvents();
-
+     
+      //Construct search string, starts asynch chain and calls api search after location result
+      getSearchString();
 });
 
 
 //MAIN SECTION OF CODE --- INITIAL EXECUTION
+
+//Initialize Firebase database
 var database = initFirebase();
+
+//GOOGLEMAPS global geocoder variable
+var geocoder;
+
 //Empty global array to be populated with events pulled from search
 var eventArr = [];
-//getEventfulEvents();
-//getTicketMasterEvents();
-
 
 

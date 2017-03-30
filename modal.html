@@ -63,6 +63,47 @@ Advanced Search
 
 
 
+
+<!--  -->
+<!--  -->
+<!-- Large Pop-Up Modal when Details button on card is clicked -->
+<!--  -->
+<!--  -->
+<button class="btn btn-primary btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">
+  Large modal
+</button>
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-lg">
+	<div class="modal-content">
+		<div class="modal-header">
+		<!-- Event Image pulled from JSON object -->
+		<img id="eventImage" src="https://placehold.it/850x280" alt="Event image" style="width:100%;">
+		</div>
+
+		<!-- Space for other event related text details -->
+
+		<!-- Find tickets Button centered in Modal -->
+		<div id="ticketButtonDiv" class="container-fluid">		  
+	    	<div class="row">
+      
+    	  		<div class="col-md-4"></div>
+      
+				<div id="ticketButton" class="col-md-4" style="text-align: center;">
+				<a role="button" class="btn btn-primary" target="_blank" href='"http://www.ticketmaster.com/search?tm_link=tm_homeA_header_search&q="'>	Find Tickets
+				</a>
+				</div>
+      		
+      			<div class="col-md-4 col-md-offset-4"></div>
+  
+  			</div>
+
+    	</div>
+</div>
+</div>
+
+
 <!-- 	<div class="input-group">
   	<span class="input-group-addon">Month</span>
 	<form class="form-inline">

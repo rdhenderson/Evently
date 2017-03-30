@@ -305,8 +305,7 @@ var database = initFirebase();
 //GOOGLEMAPS global geocoder variable
 var geocoder;
 
+
 //Empty global array to be populated with events pulled from search
 var eventArr = [];
-
-
 

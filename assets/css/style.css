@@ -37,9 +37,23 @@ h4{
 div{ 
 	padding: 5px 80px;
 }
-p {
-  line-height: 2rem;
+
+[id="toggle-heart"]{
+  position: absolute;
+  left: -100vw;
 }
+[for='toggle-heart'] {
+  color: #aab8c2;
+}
+
+[id='toggle-heart']:checked + label {
+  color: #e2264d;
+}
+[for='toggle-heart'] {
+  font-size: 2em;
+  cursor: pointer;
+}
+
 
 footer.footer-copyright {
   ;
@@ -47,5 +61,8 @@ footer.footer-copyright {
   height: 50px;
   text-align:center;
 }
+
+  
+
 
 

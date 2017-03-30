@@ -37,19 +37,23 @@
 						</div>
 						<div class="form-group">
 							<label for="search-location">Location</label>
-							<input type="text" class="form-control" id="search-location" type="text">
+							<input type="text" class="form-control" name="location" id="search-location" type="text">
 						</div>
 						<div class="form-group">
 							<label for="search-time">Time</label>
-							<input type="text" class="form-control" id="search-time" type="text">
+							<input type="text" class="form-control" name="startTime" id="search-time" type="text">
 						</div>
 						<div class="form-group">
-							<label for="search-date">Date</label>
-							<input type="text" class="form-control" id="search-date" type="date">
+							<label for="search-start-date">Start Date</label>
+							<input type="text" class="form-control" name="startDate" id="search-start-date" type="date">
+						</div>
+						<div class="form-group">
+							<label for="search-end-date">End Date</label>
+							<input type="text" class="form-control" name="endDate" id="search-end-date" type="date">
 						</div>
 						<div class="form-group">
 							<label for="search-radius">Radius</label>
-							<input type="text" class="form-control" id="search-radius" type="number">
+							<input type="text" class="form-control" name="radius" id="search-radius" type="number">
 						</div>
 						<button class="btn btn-primary" id="submit-event-search" type="submit">Submit</button>
 					</form>
@@ -124,14 +128,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 <!-- Add Moment -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<!-- Add Eventful API -->
+<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
 
-<!-- Add Google Map API (with api key included) -->
-<!-- Add Custom Javascript file -->
-<!-- <script src="assets/javascript/testEvents.js"></script> -->
-
-<script src="assets/javascript/maps.js"></script>
-<script src="assets/javascript/events.js"></script>
+<!-- Add Google Map API AFTER CUSTOM FILES (with api key included) -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr_I5lOUITIzV8Y77Zo_G_q4iXMm208cs&&callback=initGoogleMaps" async defer></script>
 	
+<!-- Add Custom Javascript file -->
+<!-- <script src="assets/javascript/testEvents.js"></script> -->
+<script src="assets/javascript/maps.js"></script>
+<script src="assets/javascript/events.js"></script>
+
 </body>
 </html>

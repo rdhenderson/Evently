@@ -1,85 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
 
+<head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- CSS  -->
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
 
-  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
-
-  </head>
-  <body>
-
-    <h1>Evently</h1>
-
-  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <a class="navbar-brand" href="#">Events</a>
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-md-0">   
-    </ul>
-
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
-
-
-<div id="main-container" class="container">
-<section class="main-selection">
-
-<div class="card" style="width: 20rem;">
-  <img class="card-img-top" src="" alt="Card image cap">
-  <div class="card-block">
-    <h4 class="card-title">Event Name</h4>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">Start Time</li>
-    <li class="list-group-item">End Time</li>
-<!--     <li class="list-group-item">xxxx</li> -->
-  </ul>
-  <div class="card-block">
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>
-</section>
-
-<!--   Results Section   -->
-      <div class="section">
-        <div class = "row">
-          <div id="map" class= "col s6">
-            <div id="map_canvas" ></div>
-          </div>
-          <div id="display" class = "col s6"></div>
-        </div>
-
-        <div class ="row">
-          <div id = "key" class= "col s6"></div>
-        </div>
-      </div>
-  </div>
-  
-
-    <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<body>
+    <h1>EVENTLY</h1>
+    <div class="container">
+        <img src="assets/images/event.gif">
+    </div>
+    <div class="container-fluid"></div>
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+        <a class="navbar-brand" href="#">Search For Events In Your City</a>
+        <div id="search" style="margin-left:auto;"></div>
+        <ul class="navbar-nav mr-auto mt-2 mt-md-0"></ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="" />
+            <!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form> -->
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search for the Events
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Search</a></li>
+                    <li><a href="#">Advanced Search</a></li>
+                    <!--  <span class="heartPrimary"></span>
+    <span class="heartSecondary"></span> -->
+                </ul>
+            </div>
+            </div>
+    </nav>
+    <div id="main-container" class="container">
+        <section class="main-selection">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h3 class="card-title">Event Name</h3>
+                            <input id="toggle-heart" type="checkbox" />
+                            <label for="toggle-heart">❤</label>
 
 
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Date</li>
+                                <li class="list-group-item">Time</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h3 class="card-title">Event Name</h3>
 
-  </body>
+
+      <input id="toggle-heart" type="checkbox" />
+      <label for="toggle-heart">❤</label>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Date</li>
+                                <li class="list-group-item">Time</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h3 class="card-title">Event Name</h3>
+                            <input id="toggle-heart" type="checkbox" />
+                            <label for="toggle-heart">❤</label>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Date</li>
+                                <li class="list-group-item">Time</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h3 class="card-title">Event Name</h3>
+                            <input id="toggle-heart" type="checkbox" />
+                            <label for="toggle-heart">❤</label>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">Date</li>
+                                <li class="list-group-item">Time</li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">Link</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Jquery -->
+            <script src="https://code.jquery.com/jquery.js"></script>
+            <!-- Add Firebase -->
+            <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+            <!-- Add Tether for Bootstrap 4-->
+            <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+            <!-- Add Bootstrap Jquery  -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+            <!-- Add Moment -->
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+            <!-- Add Custom Javascript file -->
+            <script src="/assets/javascript/events.js"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+            <footer class="footer-copyright blue lighten-1 row center">
+                <div class="container">Copyright &copy; Team 3 2017</div>
+            </footer>
+</body>
+
 </html>
-

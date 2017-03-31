@@ -35,7 +35,7 @@
       	// log out results from geocoding
       	console.log("geocoding results");
         console.log(results);
-        
+               
         // reposition map to the first returned location
         map.setCenter(results[0].geometry.location);
         

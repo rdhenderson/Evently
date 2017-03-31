@@ -15,8 +15,8 @@ button {
     color: black;
     border: 2px solid black; 
 }
-img{ 
-    width: auto;
+#mainpic{ 
+    width: 100%;
     height: auto;
     display: block;
     margin: auto;
@@ -34,9 +34,6 @@ h4{
 	font-size: 1.6em;
   font-weight: bold;
 }
-div{ 
-	padding: 5px 80px;
-}
 
 [id="toggle-heart"]{
   position: absolute;
@@ -53,8 +50,6 @@ div{
   font-size: 2em;
   cursor: pointer;
 }
-
-
 footer.footer-copyright {
   ;
   color: black;  

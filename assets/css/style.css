@@ -1,0 +1,68 @@
+
+body {
+  font-family:"Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  color: black;
+}
+h1{
+  color: black;
+  height:200%;
+  text-align:center;
+  font-size: 3.6em;
+  font-weight: bold;
+}
+button {
+    background-color: white;
+    color: black;
+    border: 2px solid black; 
+}
+img{ 
+    width: auto;
+    height: auto;
+    display: block;
+    margin: auto;
+ }
+
+nav{
+  float: center;
+  margin-top: 10px;
+  color: black;
+  font-weight: bold;
+  margin-left:auto;
+}
+
+h4{
+	font-size: 1.6em;
+  font-weight: bold;
+}
+div{ 
+	padding: 5px 80px;
+}
+
+[id="toggle-heart"]{
+  position: absolute;
+  left: -100vw;
+}
+[for='toggle-heart'] {
+  color: #aab8c2;
+}
+
+[id='toggle-heart']:checked + label {
+  color: #e2264d;
+}
+[for='toggle-heart'] {
+  font-size: 2em;
+  cursor: pointer;
+}
+
+
+footer.footer-copyright {
+  ;
+  color: black;  
+  height: 50px;
+  text-align:center;
+}
+
+  
+
+
+

@@ -1,0 +1,61 @@
+Title: Evently 
+
+Team Members: 
+Sarah Amirie
+Cary Cooper
+Reid Henderson
+Mohammed Kemal
+
+Description: 
+	Website to list events happening in your city.  
+
+Show “hot spots” in community based on aggregate of event data over time (?)
+Allow filtering search by location, event type and other criteria (will depend on API)
+Show estimate end times for events and notify ride-share drivers when large events will be ending
+Allow targeting to wealthier neighborhoods to determine where riders are most likely to pay surge pricing (per Patrick’s suggestion).  Using zillow API?
+APIs:
+
+
+Event APIs.  Eventful http://api.eventful.com/
+Google Maps API.  https://developers.google.com/maps/documentation/javascript/get-api-key
+
+GitHub Repo: 
+https://github.com/rdhenderson/group-project 
+
+Initial Tasks: 
+Front-end wireframe.  [Cary]
+Javascript outline. [Reid]
+API research [Mohammed & Sarah]
+Meet Saturday with outline of front-end design and back-end tasks to break down responsibilities.  
+
+
+Functionality Outline:
+
+(1) On search: 
+	- Pull search parameters from form
+	- AJAX query to event API (or multiple APIs), return JSON object
+	- Put query results into array of event objects
+	- Push query results into firebase (DISCUSS)
+	- Table View: Populate table with event information
+	- Map View: Populate map with event information
+
+(2) On Search click, Map View (google map API)
+	- Draw map of current location or set location on page 
+	- Allow user to select a location from the map 
+	- Use location data to send a request to event API
+	- Populate map with events.  Update events location changes. 
+(3) Filtering Live Search Results
+	- Allow users to set filters to remove events from full listing
+	- As filters are added or removed, update map or table
+(4) Add events
+	- Add event button on website. 
+	- On click, open a form (modal?) with input boxes for event information
+	- On submit, push event data to firebase
+(5) Event Details
+	- When user clicks on specific event (table or map), open a modal/card and display event details
+	- Include a text box and "add comment" feature for user comments on events. 
+	- On submit click, (a) add comment to event object and (b) push update to firebase
+
+(6) Rideshare Driver Info:
+	- Allow filtering by event size and end-time.  [BONUS: Search by wealthier neighborhoods using some other API]
+

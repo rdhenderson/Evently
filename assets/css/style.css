@@ -2,6 +2,8 @@
 body {
   font-family:"Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
   color: black;
+  padding-top: 1em;
+
 }
 h1{
   color: black;
@@ -35,7 +37,7 @@ h4{
   font-weight: bold;
 }
 div{ 
-	padding: 5px 80px;
+	/*padding: 5px 80px;*/
 }
 
 [id="toggle-heart"]{

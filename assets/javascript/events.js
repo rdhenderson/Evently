@@ -108,8 +108,7 @@ function getTicketMasterEvents(searchString) {
 		 	//NEED TO DETERMINE HOW TO REACT IF SEARCH RETURNS EMPTY RESULT -- 
 		 	// NOTIFY USER OF ERROR AND ASK THEM TO SEARCH AGAIN?
 		 	console.log("No results found.  Please try again."); 
-		 }
-
+		 }	
 	});
 }
 

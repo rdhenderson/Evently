@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Evently</title>
+	<!-- Add Bootstrap CDN -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<!-- Add Custom Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Droid+Serif|Patua+One|Raleway" rel="stylesheet">
+	<!-- Add Custom Styles -->
+	<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+	<div class="container">
+		
+	<div class="jumbotron">
+	  <h1 class="display-3">Events Around</h1>
+	  <p class="lead">Search for events in your area</p>
+	</div>
+ 
+ <!-- <div id="map" style="width: 320px; height: 480px;"></div>
+  <div>
+    <input id="address" type="textbox" value="Sydney, NSW">
+    <input type="button" value="Encode" onclick="codeAddress()">
+</div> -->
+  	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-header">
+				    Event Search
+			  	</div>
+				<div class="card-block">
+				<!-- input name attributes must match ticketmaster API parameter names for .serialize to work -->
+					<form id="event-search-form">
+						<div class="form-group">
+							<label for="search-keyword">Keywords</label>
+							<input type="text" class="form-control" name="keyword" id="search-keyword" type="text">
+						</div>
+						<div class="form-group">
+							<label for="search-location">Location</label>
+							<input type="text" class="form-control" name="location" id="search-location" type="text">
+						</div>
+						<div class="form-group">
+							<label for="search-time">Time</label>
+							<input type="text" class="form-control" name="startTime" id="search-time" type="text">
+						</div>
+						<div class="form-group">
+							<label for="search-start-date">Start Date</label>
+							<input type="text" class="form-control" name="startDate" id="search-start-date" type="date">
+						</div>
+						<div class="form-group">
+							<label for="search-end-date">End Date</label>
+							<input type="text" class="form-control" name="endDate" id="search-end-date" type="date">
+						</div>
+						<div class="form-group">
+							<label for="search-radius">Radius</label>
+							<input type="text" class="form-control" name="radius" id="search-radius" type="number">
+						</div>
+						<button class="btn btn-primary" id="submit-event-search" type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-6"> 
+		  	<div class="card">
+				<div class="card-header">
+				    Add Events
+			  	</div>
+				<div class="card-block">
+					<form id="add-event-form">
+						<div class="form-group">
+							<label for="event-name">Event Name</label>
+							<input type="text" class="form-control" id="event-name" type="text">
+						</div>
+						<div class="form-group">
+							<label for="location">Location</label>
+							<input type="text" class="form-control" id="location" type="number">
+						</div>
+						<div class="form-group">
+							<label for="start-time">Start Time</label>
+							<input type="text" class="form-control" id="start-time" type="number">
+						</div>
+						<div class="form-group">
+							<label for="end-time">End Time</label>
+							<input type="text" class="form-control" id="end-time" type="number">
+						</div>
+						<div class="form-group">
+							<label for="comments">Comments</label>
+							<input type="text" class="form-control" id="comments" type="number">
+						</div>
+						<button class="btn btn-primary" id="submit-event-add" type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="card">
+				<div class="card-header">
+					Nearby Events
+  				</div>
+  			<div class="card-block">
+	    		<table class="table">
+					<thead>
+					    <tr>
+					      <th>Event</th>
+					      <th>Location</th>
+					      <th>Time</th>
+					    </tr>
+					</thead>
+			  		<tbody id="event-table">
+						<!-- event information inserted here -->
+			  		</tbody>
+					</table>
+  			</div>
+  		</div>	
+  	</div>
+</div>
+
+<!-- Add Jquery -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Add Firebase -->
+<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+<!-- Add Tether for Bootstrap 4-->
+<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+<!-- Add Bootstrap Jquery  -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<!-- Add Moment -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+<!-- Add Eventful API -->
+<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
+
+<!-- Add Google Map API AFTER CUSTOM FILES (with api key included) -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr_I5lOUITIzV8Y77Zo_G_q4iXMm208cs&&callback=initGoogleMaps" async defer></script>
+	
+<!-- Add Custom Javascript file -->
+<!-- <script src="assets/javascript/testEvents.js"></script> -->
+<script src="assets/javascript/maps.js"></script>
+<script src="assets/javascript/events.js"></script>
+
+</body>
+</html>

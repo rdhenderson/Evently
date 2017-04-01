@@ -90,7 +90,7 @@ function getSearchStringTM(search) {
 // ASYNCH AJAX CALL WITHIN FUNCTION
 function getTicketMasterEvents(searchString) {
 	var apiKey = "AA07uZLT1s2Uo0SkmMNcHV4kz22ivu4V";
-	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=" + apiKey + "&" + searchString;
+	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=" + apiKey + "&" + encodeURIComponent(searchString);
 	
 	$.ajax({
 		url: queryURL, 
@@ -162,7 +162,7 @@ function getEventfulEvents(search) {
       page_size: 50,
       sort_order: "popularity",
    };
-
+   console.log(oArgs);
    	EVDB.API.call("/events/search", oArgs, function(response) {
 		if(response.total_items > 0) {
 			var resultArr = response.events.event;
@@ -260,7 +260,8 @@ $("#submit-event-add").on("click", function(event) {
 
 // Capture SEARCH EVENT submission and call API search
 // ON NEW SEARCH, CLEAR OUT PRIOR EVENT ARRAY AND TABLE. PUSH TO FIREBASE FIRST?
-$("#submit-event-search").on("click", function(event) {
+
+$("#simple-search-submit").on("click", function(event) {
     //Prevent default action on "submit" type 
     event.preventDefault();
       
@@ -290,6 +291,43 @@ $("#submit-event-search").on("click", function(event) {
 	getSearchStringEventful(search);
       
 });
+
+$("#adv-search-submit").on("click", function(event) {
+    //Prevent default action on "submit" type 
+    event.preventDefault();
+      
+	//Take form inputs and put them into search object
+	var search = {};
+
+	$.each($("#adv-search-form :input").serializeArray(), function() { search[this.name] = this.value; });
+	
+	console.log("In advanced search");
+	console.log(search);
+
+	//Clear form data
+  	$("#adv-search-form :input").val("");
+
+	//Pull date and time into moment object from search strings.  If fields blank, default to current date and/or current time
+	//Consider defining search object and including time math as function?
+	if(search.startTime && search.startDate) {
+		search.time = moment(search.date + " " + search.startTime);
+	} else if (search.startTime) {
+		search.time = moment(search.startTime, "HH:mm a");
+	} else if (search.date) {
+		search.time = moment(search.date, "MM/DD/YYYY");
+	} else {
+		search.time = moment();
+	}
+
+	//Call Ticket Master search function
+	getSearchStringTM(search);
+	
+	//Call eventful API search function
+	getSearchStringEventful(search);
+      
+});
+
+
 
 //=============================================================
 //MAIN SECTION OF CODE --- INITIAL EXECUTION & GLOBAL VARIABLES

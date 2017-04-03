@@ -326,7 +326,18 @@ $("#adv-search-submit").on("click", function(event) {
 	getSearchStringEventful(search);
       
 });
-
+/*create a javascript function to add the  HTML to $("#event-cards")
+element of web page with event information inserted. */
+	//creating the click btn
+	$("#btnDetail").click(function(){
+		//creating the new date object
+		var eventDate = new Date();
+		//adding the date to the id
+		$("#listDate").text(eventDate);
+		
+		var eventTime = eventDate.toTimeString();
+		$("#listTime").text(eventTime);
+	});
 
 
 //=============================================================

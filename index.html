@@ -1,183 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="eng=us">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <!-- CSS  -->
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <!-- CSS  -->
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
-
 <body>
-    <h1>EVENTLY</h1>
-    <div class="container">
-        <img id="mainpic" src="assets/images/event.gif">
-    </div>
-    <div class="container-fluid"></div>
-    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-        <a class="navbar-brand" href="#">Search For Events In Your City</a>
-        <div id="search" style="margin-left:auto;"></div>
-        <ul class="navbar-nav mr-auto mt-2 mt-md-0"></ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="" />
+  <h1>EVENTLY</h1>
+  <div class="container">
+    <img id="mainpic" src="assets/images/event.gif">
+  </div>
+  <div class="container-fluid"></div>
+  <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <a class="navbar-brand" href="#">Search For Events In Your City</a>
+    <div id="search" style="margin-left:auto;"></div>
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0"></ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="" />
             <!--      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form> -->
-            <div class="dropdown">
-                <button id="simple-search-submit" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search for the Events
-                    <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Search</a></li>
-                    <li><a href="#">Advanced Search</a></li>
+          </form> -->
+          <div class="dropdown">
+            <button id="simple-search-submit" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Search for the Events
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="#">Search</a></li>
+                <li><a href="#">Advanced Search</a></li>
                     <!--  <span class="heartPrimary"></span>
                     <span class="heartSecondary"></span> -->
+                  </ul>
+                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#advSearch">
+                    Advanced Search
+                  </button>
+                </div>
+              </div>
+            </nav>
+            <br>
+            <div id="event-cards" class="card-deck">
+              <div class="card text-center">
+                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                <div class="card-block">
+                 <input id="toggle-heart" type="checkbox" />
+                 <label for="toggle-heart">❤</label>
+                 <h4 class="card-title">Event Name</h4>
+                 <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                 <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="listDate" >Date</li>
+                  <li class="list-group-item" id="listTime">Time</li>
                 </ul>
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#advSearch">
-                  Advanced Search
+                <br>
+                <a href="#" class="btn btn-primary" id="btnDetail">Details</a>
+              </div>
+            </div>
+            <div class="card text-center">
+              <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+              <div class="card-block">
+                <input id="toggle-heart" type="checkbox" />
+                <label for="toggle-heart">❤</label>
+                <h4 class="card-title">Event Name</h4>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item" id="listDate" >Date</li>
+                  <li class="list-group-item" id="listTime">Time</li>
+                </ul>
+                <br>
+                <a href="#" class="btn btn-primary" id="btnDetail">Details</a>
+              </div>
+            </div>
+            <div class="card text-center">
+             <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+             <div class="card-block">
+              <input id="toggle-heart" type="checkbox" />
+              <label for="toggle-heart">❤</label>
+              <h4 class="card-title">Event Name</h4>
+              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="listDate" >Date</li>
+                <li class="list-group-item" id="listTime">Time</li>
+              </ul>
+              <br>
+              <a href="#" class="btn btn-primary" id="btnDetail">Details</a>
+            </div>
+          </div>
+        </div>
+        <br>
+        <footer class="footer-copyright blue lighten-1 row center">
+          <div class="container">Copyright &copy; 2017 TEAM 3 </div>
+        </footer>
+        <!-- MODALS STORED BELOW -->
+        <!-- Advanced Search Modal -->
+        <div class="modal fade" id="advSearch" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
                 </button>
+                <h4 class="modal-title" id="modalLabel">Advanced Search</h4>
+              </div>
+              <!-- Inputs for Adv Search -->
+              <div id="adv-search-form" class="modal-body">
+               <div class="input-group">
+                <span class="input-group-addon">Keywords</span>
+                <input type="text" name="keyword" class="form-control" aria-label="Location">
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">Location</span>
+                <input type="text" name="location" class="form-control" aria-label="Location">
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">Start Date </span>
+                <input type="date" name="startDate" class="form-control" aria-label="Date" min="2017-01-01">
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">End Date </span>
+                <input type="date" name="endDate" class="form-control" aria-label="Date" min="2017-01-01">
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">Time </span>
+                <input type="time" name="startTime" name="time" placeholder="hrs:mins" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$" class="form-control" required>
+              </div>
+              <br>
+              <div class="input-group">
+                <span class="input-group-addon">Radius </span>
+                <input type="number" name="radius" class="form-control" aria-label="Radius" step="5">
+              </div>  
+              <!-- Close modal body div -->
+            </div> 
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" id="adv-search-submit" class="btn btn-secondary" >Search</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-            </div>
-    </nav>
-    <br>
-
-
-<div id="event-cards" class="card-deck">
-  <div class="card text-center">
-    <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-    <div class="card-block">
-     <input id="toggle-heart" type="checkbox" />
-      <label for="toggle-heart">❤</label>
-      <h4 class="card-title">Event Name</h4>
-      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-      <ul class="list-group list-group-flush">
-      <li class="list-group-item">Date</li>
-      <li class="list-group-item">Time</li>
-       </ul>
-       <br>
-       <a href="#" class="btn btn-primary">Details</a>
-    </div>
-  </div>
-    <div class="card text-center">
-      <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-      <div class="card-block">
-      <input id="toggle-heart" type="checkbox" />
-        <label for="toggle-heart">❤</label>
-        <h4 class="card-title">Event Name</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item">Date</li>
-        <li class="list-group-item">Time</li>
-         </ul>
-         <br>
-         <a href="#" class="btn btn-primary">Details</a>
-      </div>
-    </div>
-    <div class="card text-center">
-         <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-      <div class="card-block">
-      <input id="toggle-heart" type="checkbox" />
-        <label for="toggle-heart">❤</label>
-        <h4 class="card-title">Event Name</h4>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item">Date</li>
-        <li class="list-group-item">Time</li>
-         </ul>
-         <br>
-         <a href="#" class="btn btn-primary">Details</a>
-      </div>
-    </div>
-</div>
-
-<br>
-<footer class="footer-copyright blue lighten-1 row center">
-    <div class="container">Copyright &copy; 2017 TEAM 3 </div>
-</footer>
-
-
-<!-- MODALS STORED BELOW -->
-  <!-- Advanced Search Modal -->
-  <div class="modal fade" id="advSearch" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-          <h4 class="modal-title" id="modalLabel">Advanced Search</h4>
-        </div>
-
-        <!-- Inputs for Adv Search -->
-        <div id="adv-search-form" class="modal-body">
-           <div class="input-group">
-            <span class="input-group-addon">Keywords</span>
-            <input type="text" name="keyword" class="form-control" aria-label="Location">
           </div>
-          <br>
-          <div class="input-group">
-            <span class="input-group-addon">Location</span>
-            <input type="text" name="location" class="form-control" aria-label="Location">
-          </div>
-          <br>
-          <div class="input-group">
-            <span class="input-group-addon">Start Date </span>
-            <input type="date" name="startDate" class="form-control" aria-label="Date" min="2017-01-01">
-          </div>
-          <br>
-          <div class="input-group">
-            <span class="input-group-addon">End Date </span>
-            <input type="date" name="endDate" class="form-control" aria-label="Date" min="2017-01-01">
-          </div>
-          <br>
-          <div class="input-group">
-            <span class="input-group-addon">Time </span>
-            <input type="time" name="startTime" name="time" placeholder="hrs:mins" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$" class="form-control" required>
-          </div>
-          <br>
-          <div class="input-group">
-            <span class="input-group-addon">Radius </span>
-            <input type="number" name="radius" class="form-control" aria-label="Radius" step="5">
-          </div>  
-        <!-- Close modal body div -->
-        </div> 
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" id="adv-search-submit" class="btn btn-secondary" >Search</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  </div>
-</div>
+    <!-- Add Jquery -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Add Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
+    <!-- Add Tether for Bootstrap 4-->
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <!-- Add Bootstrap Jquery  -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <!-- Add Moment -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
 
+    <!-- Add Eventful API -->
+    <script type="text/javascript" src="http://api.eventful.com/js/api"></script>
 
-<!-- Add Jquery -->
-<script src="https://code.jquery.com/jquery.js"></script>
-<!-- Add Firebase -->
-<script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-<!-- Add Tether for Bootstrap 4-->
-<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-<!-- Add Bootstrap Jquery  -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-<!-- Add Moment -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <!-- Add Custom Javascript files -->
+    <script src="assets/javascript/events.js"></script>
+    <!-- <script src="assets/javascript/maps.js"></script> -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script> -->
 
-<!-- Add Eventful API -->
-<script type="text/javascript" src="http://api.eventful.com/js/api"></script>
-
-<!-- Add Custom Javascript files -->
-<script src="assets/javascript/events.js"></script>
-<!-- <script src="assets/javascript/maps.js"></script> -->
-<!-- <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script> -->
-
-<!-- Add Google Map API (with api key included) FOR SOME REASON THIS WANTS TO BE AFTER OUR CUSTOM JAVA SCRIPTS - ASYNCH BOOTLOADER-->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr_I5lOUITIzV8Y77Zo_G_q4iXMm208cs&&callback=initGoogleMaps" async defer></script>
-
-</body>
-
-</html>
+    <!-- Add Google Map API (with api key included) FOR SOME REASON THIS WANTS TO BE AFTER OUR CUSTOM JAVA SCRIPTS - ASYNCH BOOTLOADER-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr_I5lOUITIzV8Y77Zo_G_q4iXMm208cs&&callback=initGoogleMaps" async defer></script>
+  </body>
+  </html>

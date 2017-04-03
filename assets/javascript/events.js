@@ -125,7 +125,7 @@ function getSearchStringEventful(search){
 		  	searchString += "&location=" + latLng;
 		  	if(!search.radius) {
 		  		//radius is required by eventful for lat/long location types
-		  		search.radius = defaultRadius
+		  		search.radius = defaultRadius;
 		  	} 
 		  	//Search for events with current location
 		  	getEventfulEvents(search);
@@ -143,9 +143,9 @@ function getEventfulEvents(search) {
 	var endDate;
 	
 	if(search.endDate) {
-		endDate = search.endDate.format("YYYY-MM-DD")+"00" 
+		endDate = search.endDate.format("YYYY-MM-DD")+"00";
 	} else {
-		endDate = search.time.add(1, 'days').format("YYYY-MM-DD") + "00" 
+		endDate = search.time.add(1, 'days').format("YYYY-MM-DD") + "00";
 	}
 
 	//Give a default location if none specified
@@ -223,7 +223,7 @@ function createEvent(event, origin) {
 		eventArr.push(newEvent);
 		return newEvent;
 	} else {
-		console.log("duplicate Event")
+		console.log("duplicate Event");
 	}
 }
 

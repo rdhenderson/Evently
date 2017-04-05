@@ -18,16 +18,17 @@
     <div class="container">
         <img id="mainpic" src="assets/images/event.gif">
         <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-            <div class="col-3"></div>
-            <div class="col-6 text-center">
+            <div class="col-2"></div>
+            <div class="col-8 text-center">
                 <a class="navbar-brand" href="#">Search For Events Near You</a>
                 <form class="form-inline center-block">
-                    <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                    <button class="btn btn-outline-success my-1 my-sm-0" type="submit">Search</button>
+                    <input class="form-control mr-sm-2" id="simple-search-keyword" type="text" placeholder="Search">
+                    <input class="form-control mr-sm-2" id="simple-search-location" type="text" placeholder="Location">
+                    <button id="simple-search-submit" class="btn btn-outline-success my-1 my-sm-0" type="submit">Search</button>
                     <button class="btn btn-outline-success my-1 my-sm-0" type="button" data-toggle="modal" data-target="#advSearch" id="advSearchBtn"> Advanced Search</button>
                 </form>
             </div>
-            <div class="col-3"></div>
+            <div class="col-2"></div>
         </nav>
     </div>
     </ul>
@@ -70,16 +71,16 @@
                         <div class="form-group row no-gutters">
                             <label for="keyword-search-input" class="col-2 col-form-label input-group-addon">Keyword</label>
                             <div class="col-9">
-                                <input class="form-control" type="search" name="keyword" value="Enter a location" id="keyword-search-input" autocomplete="on">
+                                <input class="form-control" type="search" name="keyword" placeholder="Event type (e.g. music, dance)" id="keyword-search-input" autocomplete="on">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row no-gutters">
                             <label for="location-search-input" class="col-2 col-form-label input-group-addon">Location</label>
-                            <label for="location-search-input" class="col-1 col-form-label input-group-addon fa fa-map-marker" id="geolocate-btn"></label>
                             <div class="col-9">
-                                <input class="form-control" type="search" name="location" value="Enter a location" id="location-search-input" autocomplete="on">
+                                <input class="form-control" type="search" name="location" placeholder="Enter a location" id="location-search-input" autocomplete="on">
                             </div>
+                            <label for="location-search-input" class="col-1 col-form-label input-group-addon fa fa-map-marker" id="geolocate-btn"></label>
                         </div>
                         <br>
                         <div class="form-group row no-gutters">
@@ -111,7 +112,7 @@
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <button type="button" id="adv-search-submit" class="btn btn-secondary">Search</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" id="adv-search-close" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -177,6 +178,7 @@
 
 <!-- Add Custom Javascript files -->
 <script src="assets/javascript/events.js"></script>
+<script src="assets/javascript/api-search.js"></script>
 <script src="assets/javascript/modals.js"></script>
 
 <!-- <script src="assets/javascript/maps.js"></script> -->

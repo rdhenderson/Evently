@@ -19,4 +19,10 @@ $("#advSearchBtn").on("click", function() {
         $("#startdate-search-input").attr("value", today);
         $("#enddate-search-input").attr("value", tomorrow);
         $("#time-search-input").attr("value", now);
+
+        //If user typed in search box, add that information to advanced search
+        var userSearch = $("#simple-search").val(); 
+        if (userSearch) {
+            $("#keyword-search-input").val(userSearch);
+        }
     });

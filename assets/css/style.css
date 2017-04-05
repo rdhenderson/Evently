@@ -22,6 +22,24 @@ button {
     margin: auto;
  }
 
+.event-card {
+  /*height: 300px;*/
+  /*width: 200px;*/
+  /*margin-right: 20px;*/
+}
+.crop {
+  display: block;
+  max-width:230px;
+  max-height:125px;
+  width: auto;
+  height: auto;
+  /*overflow: hidden;*/
+}
+
+.crop img {
+    margin: -100px 0 0 -100px;
+}
+
 nav{
   float: center;
   margin-top: 10px;

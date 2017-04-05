@@ -34,19 +34,38 @@ function writeNewObj (dataObj, itemPath) {
   return firebase.database().ref().update(updates);
 }
 
-//Add event to event-display-table element
-function writeEvent(event){
-  //Insert row into Event Table with event information 
-  $("#event-table").append( '<tr><td>'  + event.name + 
-                            '</td><td>' + event.location + 
-                            '</td><td>' + event.startTime + '</td></tr>');
+function formatSearchObject(search) {
+
+	//Set a default search location and radius if none entered. 
+	search.radius = (search.radius) ? search.radius : defaultRadius;
+	search.location = (search.location) ? search.location : defaultSearchCoords;
+
+	//Pull date and time into moment object from search strings.  If fields blank, default to current date and/or current time
+	//Ternary operator start and end dates will be a moment using either the given date or today and tomorrow
+	search.startDate = (search.startDate) ? moment(search.startDate) : moment();
+	search.endDate = (search.endDate) ? moment(search.endDate) : moment(search.time.add(1, 'days'));
+
+	//Set start time, if applicable
+	if (search.startTime) {
+		var time = search.startTime.split(":");
+		console.log('time', time);
+		search.startDate = search.startDate.set ({
+			'hour' : time[0],
+			'minute' : time[1]
+		});
+		console.log("startDate", search.startDate.format());
+	}
+
+	return search;
 
 }
+
+
 
 //Construct Search String and call TicketmasterAPI for event listing
 function getSearchStringTM(search) {
 
-	var searchDateTime = search.time.format("YYYY-MM-DDTHH:mm:ssZ");
+	var searchDateTime = search.startDate.format("YYYY-MM-DDTHH:mm:ssZ");
 	
 	var searchString = "keyword=" + search.keyword + "&startDateTime=" + searchDateTime + "&size=50";
 	//If radius option is not null
@@ -97,13 +116,14 @@ function getTicketMasterEvents(searchString) {
 		url: queryURL, 
 		method: "GET"
 		}).done(function(response){
+		 console.log('TM Response', response);
 		 if(response.hasOwnProperty("_embedded")) {
 			 var resultArr = response._embedded.events;
 			 for(var i=0; i<resultArr.length; i++) {
 			 	//Creates local event object and pushes new events to event array
-			 	createEvent(resultArr[i], "ticketmaster");
-			 	//Draw last event in event array to html table
-			 	writeEvent(eventArr[eventArr.length-1]);
+			 	event = createEvent(resultArr[i], "ticketmaster");
+			 	//Draw event to html 
+			 	drawEvent(event);
 			 }
 		 } else {
 		 	//NEED TO DETERMINE HOW TO REACT IF SEARCH RETURNS EMPTY RESULT -- 
@@ -123,41 +143,23 @@ function getSearchStringEventful(search){
 		//Get current location from browser (WHAT HAPPENS IF PERMISSION DENIED - ADD GRACEFUL FAILURE)
 		navigator.geolocation.getCurrentPosition(function(position) {
 		  	var latLng = position.coords.latitude + "," + position.coords.longitude;
-		  	searchString += "&location=" + latLng;
-		  	if(!search.radius) {
-		  		//radius is required by eventful for lat/long location types
-
-		  		search.radius = defaultRadius
-
-		  	} 
+		  	search.location = latLng;
 		  	//Search for events with current location
-		  	getEventfulEvents(search);
+		  	return getEventfulEvents(search);
 		});
-	} else {	
-		//If current location not used, just call search function	
-		getEventfulEvents(search);
-	}		
+	} 
+
+	//If current location not used, just call search function	
+	getEventfulEvents(search);
+		
 }
 
 //Query Eventful API for event information ## Currently not used ##
 function getEventfulEvents(search) {
 
-	var startDate = search.time.format("YYYY-MM-DD")+"00";
-	var endDate;
+	startDate = search.startDate.format("YYYY-MM-DD")+"00";
+	endDate = search.endDate.format("YYYY-MM-DD")+"00";
 	
-	if(search.endDate) {
-
-		endDate = search.endDate.format("YYYY-MM-DD")+"00";
-	} else {
-		endDate = search.time.add(1, 'days').format("YYYY-MM-DD") + "00";
-	}
-
-	//Give a default location if none specified
-	if (!search.location) {
-		search.location = defaultSearchCoords;
-		(!search.radius) ? search.radius = defaultRadius : console.log(search.radius);
-	}
-
 	var oArgs = {
       app_key: "B3rvtFwc45vjtTFK",
       q: search.keyword,
@@ -165,19 +167,21 @@ function getEventfulEvents(search) {
       "date": startDate + "-" + endDate, //"2013061000-2015062000",
       page_size: 50,
       sort_order: "popularity",
+      within: 10,
+      units : "miles"
    };
 
-   console.log(oArgs);
+   console.log("eventful search", oArgs);
 
    	EVDB.API.call("/events/search", oArgs, function(response) {
+		console.log("eventful response", response);
 		if(response.total_items > 0) {
 			var resultArr = response.events.event;
+			var event; 
 			for(var i=0; i<resultArr.length; i++) {
-				console.log(resultArr[i]);
-			 	//Creates local event object and pushes new events to event array
-			 	createEvent(resultArr[i], "eventful");
-			 	//Draw last event in event array to html table
-			 	writeEvent(eventArr[eventArr.length-1]);
+			 	//Creates local event object, pushes new events to event array and then draw event
+			 	event = createEvent(resultArr[i], "eventful");
+			 	drawEvent(event);			 	
 			}
 		  } else {
 		 	//NEED TO DETERMINE HOW TO REACT IF SEARCH RETURNS EMPTY RESULT -- 
@@ -202,19 +206,23 @@ function createEvent(event, origin) {
 		 		name: event.name, 
 		 		location: event._embedded.venues[0].name, 
 		 		startTime: event.dates.start.localTime, 
-		 		images: [], 
+		 		startDate: event.dates.start.localDate,
+		 		image: event.images[0].url,  //Need to make a function to search through available images and pull best size?
 		 		eventObj: event,
 		 		origin: origin
 	 		};
 	        break;
 		case 'eventful':
 			//Add information for eventful json structure
+			var dateTime = event.start_time.split(" "); 
+			console.log('eventful event', event);
 			newEvent = {
 		 		name: event.title, 
 		 		location: event.venue_name, 
-		 		startTime: event.start_time, 
+		 		startTime: dateTime[1],
+		 		startDate: dateTime[0], 
 		 		endTime: event.stop_time,
-		 		images: event.image, 
+		 		image: (event.image) ? event.image.medium.url : "#", 
 		 		eventObj: event,
 		 		origin: origin
 	 		};
@@ -224,20 +232,69 @@ function createEvent(event, origin) {
 	        console.log("Unidentified API source identifier");
 	}
 
+	//Push the event to global array if its not already included 
+	if (eventArr.indexOf(newEvent) === -1) eventArr.push(newEvent);
+
 	//ADD EVALUTION FUNCTION HERE TO AVOID DUPLICATE EVENTS IF USING MULTIPLE APIS
-	if (evalUniqueEvent(newEvent)) {
-		eventArr.push(newEvent);
+	if (evalUniqueEvent(newEvent)) {	
 		return newEvent;
 	} else {
-
 		console.log("duplicate Event");
+		return false;
 	}
 }
 
-function evalUniqueEvent(eventObj){
+function evalUniqueEvent(event){
 	//Add comparison function to confirm event not already in array if multiple data sources implemented
 	return true;
 }
+
+function drawEvent(event) {
+	//Move to global variable after implementing view selection in UI
+	var viewSelection = 'card';
+
+	switch (viewSelection) {
+		case 'table':
+			drawEventTable(event);
+			break;
+		case 'card':
+			drawEventCard(event);
+			break;
+		case 'map' : 
+			drawEventMap(event);
+			break;
+	}
+}
+
+function drawEventMap(event) {
+	console.log("We need to implement this functionality");
+}
+
+//Add event to event-display-table element
+function drawEventTable(event){
+  //Insert row into Event Table with event information 
+  $("#event-table").append( '<tr><td>'  + event.name + 
+                            '</td><td>' + event.location + 
+                            '</td><td>' + event.startTime + '</td></tr>');
+
+}
+function drawEventCard(event) {
+	$("#event-cards").append( 	'<div class="card text-center event-card">' +
+								'<img class="card-img-top crop" src="' + event.image + '" alt="Card image cap">' +
+								'<div class="card-block">' +
+								'<input id="toggle-heart" type="checkbox" />' + 
+								'<label for="toggle-heart">❤</label>' +
+								'<h4 class="card-title">' + event.name + '</h4>' +
+								'<p class="card-text">' + event.location + '</p>' +
+								'<ul class="list-group list-group-flush">' + 
+								'<li class="list-group-item">' + event.startDate + '</li>' + 
+								'<li class="list-group-item">' + event.startTime + '</li></ul><br>' +
+								' <a href="#" class="btn btn-primary" id="detailbutton" data-target="#eventdetails"' +
+								'data-toggle="modal">Details</a></div></div>'
+        					);
+}
+	
+
 
 //===================================
 // CLICK HANDLERS FOR HTML ELEMENTS =
@@ -262,7 +319,7 @@ $("#submit-event-add").on("click", function(event) {
       //Write new event to firebase database
       writeNewObj(newEvent, 'events');
       //Add new event to event array and event table
-      writeEvent(newEvent);
+      drawEvent(newEvent);
 });
 
 // Capture SEARCH EVENT submission and call API search
@@ -282,15 +339,7 @@ $("#simple-search-submit").on("click", function(event) {
 
 	//Pull date and time into moment object from search strings.  If fields blank, default to current date and/or current time
 	//Consider defining search object and including time math as function?
-	if(search.startTime && search.startDate) {
-		search.time = moment(search.date + " " + search.startTime);
-	} else if (search.startTime) {
-		search.time = moment(search.startTime, "HH:mm a");
-	} else if (search.date) {
-		search.time = moment(search.date, "MM/DD/YYYY");
-	} else {
-		search.time = moment();
-	}
+	search = formatSearchObject(search);
 
 	//Call Ticket Master search function
 	getSearchStringTM(search);
@@ -299,6 +348,7 @@ $("#simple-search-submit").on("click", function(event) {
 	getSearchStringEventful(search);
       
 });
+
 
 
 $("#adv-search-submit").on("click", function(event) {
@@ -310,23 +360,13 @@ $("#adv-search-submit").on("click", function(event) {
 
 	$.each($("#adv-search-form :input").serializeArray(), function() { search[this.name] = this.value; });
 	
-	console.log("In advanced search");
-	console.log(search);
+	console.log('search', search);
 
 	//Clear form data
   	$("#adv-search-form :input").val("");
 
-	//Pull date and time into moment object from search strings.  If fields blank, default to current date and/or current time
-	//Consider defining search object and including time math as function?
-	if(search.startTime && search.startDate) {
-		search.time = moment(search.date + " " + search.startTime);
-	} else if (search.startTime) {
-		search.time = moment(search.startTime, "HH:mm a");
-	} else if (search.date) {
-		search.time = moment(search.date, "MM/DD/YYYY");
-	} else {
-		search.time = moment();
-	}
+  	//Call function to add defaults and turn time/date strings into moment objects 
+	search = formatSearchObject(search);
 
 	//Call Ticket Master search function
 	getSearchStringTM(search);

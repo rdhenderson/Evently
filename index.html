@@ -35,9 +35,9 @@
     
     </nav>
     <br>
-    <div class="card-deck">
-        <div class="card text-center">
-            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+    <div id="event-cards" class="card-deck">
+        <!-- <div class="card text-center">
+            <img class="card-img-top" src="..." alt="Card image cap">
             <div class="card-block">
                 <input id="toggle-heart" type="checkbox" />
                 <label for="toggle-heart">❤</label>
@@ -50,76 +50,10 @@
                 <br>
                 <a href="#" class="btn btn-primary" id="detailbutton" data-target="#eventdetails" data-toggle="modal">Details</a>
             </div>
-        </div>
-        <div class="card text-center">
-            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-            <div class="card-block">
-                <input id="toggle-heart" type="checkbox" />
-                <label for="toggle-heart">❤</label>
-                <h4 class="card-title">Event Name</h4>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Date</li>
-                    <li class="list-group-item">Time</li>
-                </ul>
-                <br>
-                <a href="#" class="btn btn-primary">Details</a>
-            </div>
-        </div>
-        <div class="card text-center">
-            <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-            <div class="card-block">
-                <input id="toggle-heart" type="checkbox" />
-                <label for="toggle-heart">❤</label>
-                <h4 class="card-title">Event Name</h4>
-                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Date</li>
-                    <li class="list-group-item">Time</li>
-                </ul>
-                <br>
-                <a href="#" class="btn btn-primary">Details</a>
-            </div>
-        </div>
+        </div> -->
+   
     </div>
-    <!-- Add Jquery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
-    <!-- Add Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/3.7.2/firebase.js"></script>
-    <!-- Add Tether for Bootstrap 4-->
-    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <!-- Add Bootstrap Jquery  -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    <!-- Add Moment -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
-    <!-- Add Custom Javascript file -->
-    <script src="/assets/javascript/events.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
-    <!-- Add Moment -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
-    <!-- code for models -->
-    <script>
-    // Initialize tooltip component
-    $(function() {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-        // Initialize popover component
-    $(function() {
-        $('[data-toggle="popover"]').popover()
-    })
-
-    $("#advSearchBtn").on("click", function() {
-        var today = moment().format('YYYY-MM-DD');
-        var tomorrow = (moment().add(1, 'd')).format('YYYY-MM-DD');
-        var now = (moment().startOf('hour')).format('hh:mm');
-        console.log(today);
-        console.log(tomorrow);
-        console.log(now);
-        $("#startdate-search-input").attr("value", today);
-        $("#enddate-search-input").attr("value", tomorrow);
-        $("#time-search-input").attr("value", now);
-    });
-    </script>
+    
     <!-- Advanced Search Modal -->
     <div class="modal fade bd-example-modal-lg" id="advSearch" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -131,24 +65,31 @@
                     <h4 class="modal-title" id="modalLabel">Advanced Search</h4>
                 </div>
                 <!-- Inputs for Adv Search -->
-                <div class="modal-body">
+                <div id="adv-search-form" class="modal-body">
                     <div class="container-fluid">
+                        <div class="form-group row no-gutters">
+                            <label for="keyword-search-input" class="col-2 col-form-label input-group-addon">Keyword</label>
+                            <div class="col-9">
+                                <input class="form-control" type="search" name="keyword" value="Enter a location" id="keyword-search-input" autocomplete="on">
+                            </div>
+                        </div>
+                        <br>
                         <div class="form-group row no-gutters">
                             <label for="location-search-input" class="col-2 col-form-label input-group-addon">Location</label>
                             <label for="location-search-input" class="col-1 col-form-label input-group-addon fa fa-map-marker" id="geolocate-btn"></label>
                             <div class="col-9">
-                                <input class="form-control" type="search" value="Enter a location" id="location-search-input" autocomplete="on">
+                                <input class="form-control" type="search" name="location" value="Enter a location" id="location-search-input" autocomplete="on">
                             </div>
                         </div>
                         <br>
                         <div class="form-group row no-gutters">
                             <label for="startdate-search-input" class="col-2 col-form-label input-group-addon">Start Date</label>
                             <div class="col-4">
-                                <input class="form-control" type="date" id="startdate-search-input">
+                                <input class="form-control" type="date" name="startDate" id="startdate-search-input">
                             </div>
                             <label for="enddate-search-input" class="col-2 col-form-label input-group-addon">End Date</label>
                             <div class="col-4">
-                                <input class="form-control" type="date" id="enddate-search-input">
+                                <input class="form-control" type="date" name="endDate" id="enddate-search-input">
                             </div>
                         </div>
                         <br>
@@ -169,7 +110,7 @@
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
-                        <button type="button" id="advSearchSubmit" class="btn btn-secondary">Search</button>
+                        <button type="button" id="adv-search-submit" class="btn btn-secondary">Search</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
@@ -216,6 +157,10 @@
         <div class="container">Copyright &copy; 2017 TEAM 3 </div>
     </footer>
 
+
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script> -->
+ 
+
 <!-- Add Jquery -->
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- Add Firebase -->
@@ -232,11 +177,15 @@
 
 <!-- Add Custom Javascript files -->
 <script src="assets/javascript/events.js"></script>
+<script src="assets/javascript/modals.js"></script>
+
 <!-- <script src="assets/javascript/maps.js"></script> -->
 <!-- <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script> -->
 
 <!-- Add Google Map API (with api key included) FOR SOME REASON THIS WANTS TO BE AFTER OUR CUSTOM JAVA SCRIPTS - ASYNCH BOOTLOADER-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr_I5lOUITIzV8Y77Zo_G_q4iXMm208cs&&callback=initGoogleMaps" async defer></script>
+
+
 
 </body>
 

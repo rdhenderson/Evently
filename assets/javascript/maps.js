@@ -77,7 +77,6 @@
         alert("Try again. Geocode was not successful for the following reason: " + status);
       }
   	});
-
 // var geocoder;
 // var map;
 

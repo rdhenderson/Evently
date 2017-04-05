@@ -52,6 +52,7 @@ function getSearchStringTM(search) {
 	//If radius option is not null
 	if(search.radius) searchString += "&radius=" + search.radius + "&unit=miles";
 	
+
 	var latLng;
 	//Get search location coordinates from google maps geocode API
 	//If location field is empty, default to washington DC
@@ -91,7 +92,7 @@ function getSearchStringTM(search) {
 function getTicketMasterEvents(searchString) {
 	var apiKey = "AA07uZLT1s2Uo0SkmMNcHV4kz22ivu4V";
 	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=" + apiKey + "&" + encodeURIComponent(searchString);
-	
+  
 	$.ajax({
 		url: queryURL, 
 		method: "GET"
@@ -125,7 +126,9 @@ function getSearchStringEventful(search){
 		  	searchString += "&location=" + latLng;
 		  	if(!search.radius) {
 		  		//radius is required by eventful for lat/long location types
-		  		search.radius = defaultRadius;
+
+		  		search.radius = defaultRadius
+
 		  	} 
 		  	//Search for events with current location
 		  	getEventfulEvents(search);
@@ -143,6 +146,7 @@ function getEventfulEvents(search) {
 	var endDate;
 	
 	if(search.endDate) {
+
 		endDate = search.endDate.format("YYYY-MM-DD")+"00";
 	} else {
 		endDate = search.time.add(1, 'days').format("YYYY-MM-DD") + "00";
@@ -162,7 +166,9 @@ function getEventfulEvents(search) {
       page_size: 50,
       sort_order: "popularity",
    };
+
    console.log(oArgs);
+
    	EVDB.API.call("/events/search", oArgs, function(response) {
 		if(response.total_items > 0) {
 			var resultArr = response.events.event;
@@ -223,6 +229,7 @@ function createEvent(event, origin) {
 		eventArr.push(newEvent);
 		return newEvent;
 	} else {
+
 		console.log("duplicate Event");
 	}
 }
@@ -262,6 +269,7 @@ $("#submit-event-add").on("click", function(event) {
 // ON NEW SEARCH, CLEAR OUT PRIOR EVENT ARRAY AND TABLE. PUSH TO FIREBASE FIRST?
 
 $("#simple-search-submit").on("click", function(event) {
+
     //Prevent default action on "submit" type 
     event.preventDefault();
       
@@ -291,6 +299,7 @@ $("#simple-search-submit").on("click", function(event) {
 	getSearchStringEventful(search);
       
 });
+
 
 $("#adv-search-submit").on("click", function(event) {
     //Prevent default action on "submit" type 
@@ -342,8 +351,6 @@ var database = initFirebase();
 
 //GOOGLEMAPS global geocoder variable
 var geocoder;
-
-
 //Empty global array to be populated with events pulled from search
 var eventArr = [];
 

@@ -124,16 +124,19 @@
 <!-- Large Pop-Up Modal when Details button on card is clicked -->
 <!--  -->
 <!--  -->
-<button class="btn btn-primary btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">
+<!-- <button class="btn btn-primary btn-md" data-toggle="modal" data-target=".bd-example-modal-lg">
   Large modal
-</button>
+</button> -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
-     aria-labelledby="myLargeModalLabel" aria-hidden="true" id="eventdetails">
+     aria-labelledby="myLargeModalLabel" aria-hidden="true" id="event-details">
 <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">X</span>
+            </button>
         <!-- Event Image pulled from JSON object -->
-        <img id="eventImage" src="https://placehold.it/850x280" alt="Event image" style="width:100%;">
+        <img id="event-image" src="https://placehold.it/850x280" alt="Event image" style="width:100%;">
         </div>
         <!-- Space for other event related text details -->
         <!-- Find tickets Button centered in Modal -->
@@ -143,7 +146,7 @@
                 <div class="col-md-4"></div>
       
                 <div id="ticketButton" class="col-md-4" style="text-align: center;">
-                <a role="button" class="btn btn-primary" target="_blank" href='"http://www.ticketmaster.com/search?tm_link=tm_homeA_header_search&q="'>   Find Tickets
+                  <a role="button" class="btn btn-primary" target="_blank" href='"http://www.ticketmaster.com/search?tm_link=tm_homeA_header_search&q="'>   Find Tickets
                 </a>
                 </div>
             

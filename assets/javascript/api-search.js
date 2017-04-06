@@ -1,10 +1,8 @@
 function formatSearchObject(search) {
-
-	
 	//Set a default search location and radius if none entered. 
 	search.keyword = (search.keyword) ? search.keyword : defaultSearch; 
-	search.radius = (search.radius) ? search.radius : defaultRadius;
 	search.location = (search.location) ? search.location : defaultSearchCoords;
+	search.radius = (search.radius) ? search.radius : defaultRadius;
 
 	//Pull date and time into moment object from search strings.  If fields blank, default to current date and/or current time
 	//Ternary operator start and end dates will be a moment using either the given date or today and tomorrow
@@ -19,7 +17,7 @@ function formatSearchObject(search) {
 			'hour' : time[0],
 			'minute' : time[1]
 		});
-		console.log("startDate", search.startDate.format());
+		//console.log("startDate", search.startDate.format());
 	}
 	return search;
 }

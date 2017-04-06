@@ -31,9 +31,6 @@ function initGoogleMaps() {
   geocoder = new google.maps.Geocoder();
 }
 
-
-
-
 //Function to create local event object and push to eventArr
 //Parameters: json event object, API identifier ("local", "ticketmaster", or "eventful")
 function createEvent(event, origin) {
@@ -58,7 +55,7 @@ function createEvent(event, origin) {
 		case 'eventful':
 			//Add information for eventful json structure
 			var dateTime = event.start_time.split(" "); 
-			console.log('eventful event', event);
+
 			newEvent = {
 		 		name: event.title, 
 		 		location: event.venue_name, 
@@ -134,9 +131,15 @@ function drawEventCard(event) {
 								'<li class="list-group-item">' + event.startDate + '</li>' + 
 								'<li class="list-group-item">' + event.startTime + '</li></ul><br>' +
 								'<li class="list-group-item">' + event.origin + '</li></ul><br>' +
-								' <a href="#" class="btn btn-primary" id="detailbutton" data-target="#eventdetails"' +
-								'data-toggle="modal">Details</a></div></div>'
-        					);
+								' <button class="btn btn-primary detail-button" data-index="' + eventArr.indexOf(event) + '"' +
+								'data-target="#event-details" onclick="showEventDetails()" data-toggle="modal">Details</button></div></div>'
+							);
+
+}
+
+function showEventDetails() {
+	console.log("Showing Up?");
+	console.log('data', $(this));
 }
 	
 //===================================
@@ -172,12 +175,14 @@ $("#simple-search-submit").on("click", function(event) {
 
     //Prevent default action on "submit" type 
     event.preventDefault();
-      
+    
+    //Clear any prior search results
+    $("#event-cards").empty();
 	//Take form inputs and put them into search object
 	var search = {};
 	//$.each($("#event-search-form").serializeArray(), function() { search[this.name] = this.value; });
-	search.keyword = $("#keyword-search-input").val();
-	
+	search.keyword = $("#simple-search-keyword").val();
+	search.location = $("#simple-search-location").val();
 	//Clear form data
   	$("#keyword-search-input").val("");
 
@@ -197,6 +202,9 @@ $("#simple-search-submit").on("click", function(event) {
 $("#adv-search-submit").on("click", function(event) {
     //Prevent default action on "submit" type 
     event.preventDefault();
+     
+    //Clear any prior search results
+    $("#event-cards").empty();
       
 	//Take form inputs and put them into search object
 	var search = {};
@@ -220,6 +228,10 @@ $("#adv-search-submit").on("click", function(event) {
       
 });
 
+// $("event-cards").on('click', '.detail-button', function(event){
+// 	//event.preventDefault();
+// 	console.log('data', $(this).data('index'));
+// });
 
 
 //=============================================================
@@ -228,7 +240,7 @@ $("#adv-search-submit").on("click", function(event) {
 
 //SET DEFAULT SEARCH COORDINATES AND RADIUS
 var defaultSearch = 'music';
-var defaultSearchCoords = "38.9072,-77.0369";
+var defaultSearchCoords = "38.9072,-77.0369"; //Should update default search to use current location, if permission
 var defaultRadius = 5;
 
 //Initialize Firebase database

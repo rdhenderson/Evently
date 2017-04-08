@@ -48,6 +48,8 @@ function createEvent(event, origin) {
 		 		startTime: event.dates.start.localTime, 
 		 		startDate: event.dates.start.localDate,
 		 		image: event.images[0].url,  //Need to make a function to search through available images and pull best size?
+		 		tickets: event.url, 
+		 		info: event.info, 
 		 		eventObj: event,
 		 		origin: origin
 	 		};
@@ -59,10 +61,12 @@ function createEvent(event, origin) {
 			newEvent = {
 		 		name: event.title, 
 		 		location: event.venue_name, 
+		 		//address: event.venue_address,
 		 		startTime: dateTime[1],
 		 		startDate: dateTime[0], 
 		 		endTime: event.stop_time,
 		 		image: (event.image) ? event.image.medium.url : "#", 
+		 		info: event.description, 
 		 		eventObj: event,
 		 		origin: origin
 	 		};
@@ -132,19 +136,32 @@ function drawEventCard(event) {
 								'<li class="list-group-item">' + event.startTime + '</li></ul><br>' +
 								'<li class="list-group-item">' + event.origin + '</li></ul><br>' +
 								' <button class="btn btn-primary detail-button" data-index="' + eventArr.indexOf(event) + '"' +
-								'data-target="#event-details" onclick="showEventDetails()" data-toggle="modal">Details</button></div></div>'
+								'data-target="#event-details" data-toggle="modal">Details</button></div></div>'
 							);
 
 }
 
-function showEventDetails() {
-	console.log("Showing Up?");
-	console.log('data', $(this));
-}
 	
 //===================================
 // CLICK HANDLERS FOR HTML ELEMENTS =
 //===================================
+$('#event-cards').on('click','button', function(){
+	var index = $(this).data("index");
+	var event = eventArr[index];
+
+	$("#event-image").attr("src", event.image);
+	$("#event-information-space").val("");
+	$("#event-information-space").append(	"<p>" + event.name + "</p>" +
+								"<p> On " + event.startDate + " at " + event.location + "</p>" +
+								"<p>" + ((event.info) ? event.info : "") + "</p>"
+								);
+	console.log(event.tickets);
+	$("#ticket-button").val("");
+	if (event.tickets) {
+		$("#ticket-button").append('<a role="button" class="btn btn-primary" target="_blank" href="' + event.tickets +
+									'"">   Find Tickets </a>');
+	}
+});
 
 // Capture ADD EVENT submission and push event to database
 $("#submit-event-add").on("click", function(event) {
@@ -228,11 +245,11 @@ $("#adv-search-submit").on("click", function(event) {
       
 });
 
-// $("event-cards").on('click', '.detail-button', function(event){
-// 	//event.preventDefault();
-// 	console.log('data', $(this).data('index'));
-// });
-
+$("#curr-location").on("click", function(event){
+	event.preventDefault();
+	console.log("Clicked");
+	$("#location").val("current location");
+})
 
 //=============================================================
 //MAIN SECTION OF CODE --- INITIAL EXECUTION & GLOBAL VARIABLES
@@ -251,3 +268,7 @@ var geocoder;
 //Empty global array to be populated with events pulled from search
 var eventArr = [];
 
+
+$(document).ready(function(){
+	$("#simple-search-keyword").focus();
+})

@@ -21,8 +21,11 @@ $("#advSearchBtn").on("click", function() {
         $("#time-search-input").attr("value", now);
 
         //If user typed in search box, add that information to advanced search
-        var userSearch = $("#simple-search").val(); 
+        var userSearch = $("#simple-search-keyword").val(); 
         if (userSearch) {
             $("#keyword-search-input").val(userSearch);
         }
+        $("#simple-search-keyword").val('');
+        $("#simple-search-location").val('');
+
     });

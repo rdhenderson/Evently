@@ -150,15 +150,17 @@ $('#event-cards').on('click','button', function(){
 	var event = eventArr[index];
 
 	$("#event-image").attr("src", event.image);
+
 	$("#event-information-space").val("");
 	$("#event-information-space").append(	"<p>" + event.name + "</p>" +
 								"<p> On " + event.startDate + " at " + event.location + "</p>" +
 								"<p>" + ((event.info) ? event.info : "") + "</p>"
 								);
 	console.log(event.tickets);
-	$("#ticket-button").val("");
+	$("#ticket-button").html("");
+
 	if (event.tickets) {
-		$("#ticket-button").append('<a role="button" class="btn btn-primary" target="_blank" href="' + event.tickets +
+		$("#ticket-button").append('<a role="button" class="btn btn-primary" href="' + event.tickets +
 									'"">   Find Tickets </a>');
 	}
 });

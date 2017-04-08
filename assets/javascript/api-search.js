@@ -108,11 +108,10 @@ function getSearchStringEventful(search){
 		  	//Search for events with current location
 		  	return getEventfulEvents(search);
 		});
-	} 
-
-	//If current location not used, just call search function	
-	getEventfulEvents(search);
-		
+	} else {
+		//If current location not used, just call search function	
+		getEventfulEvents(search);
+		}	
 }
 
 //Query Eventful API for event information ## Currently not used ##

@@ -1,3 +1,53 @@
+var eventfulCategory = {
+	0 : null,
+	music : 'music',
+	sports : 'sports', 
+	conference : 'conference',
+	comedy : 'comedy',
+	education : 'learning_education',
+	film : 'movies_film',
+	festival : 'festivals_parades',
+	family: 'family_fun_kids',
+	food : 'food',
+	fundraiser : 'fundraisers',
+	business : 'business',
+	holiday : 'holiday', 
+	social : 'singles_social',
+	outdoors : 'outdoors_recreation', 
+	pArts : 'performing_arts',
+	religion : 'religion_spirituality',
+	technology : 'technology',
+	animals : 'animals',
+	politics : 'politics_activism',
+	clubs : 'clubs_associations' 
+}
+//Ticket master is more complicated with multiple types of categories (classification, genre, type, etc)
+//Need to find a list of the genres/classifications, etc and then include the &classificationName or &genre= portion in value here
+
+var tmCategory = {
+	0 : null,
+	music : '&classificationName=Music',
+	comedy : '&classificationName=Miscellaneous&genre=Comedy',
+	sports : '&classificationName=Sports', 
+	conference : '',
+	education : '',
+	film : '&classificationName=Film',
+	festival : '',
+	family: '',
+	food : '',
+	fundraiser : '',
+	business : '',
+	holiday : '', 
+	social : '',
+	outdoors : '', 
+	pArts : '&classificationId=KZFzniwnSyZfZ7v7na',
+	religion : '',
+	technology : '',
+	animals : '',
+	politics : '',
+	clubs : '' 
+}
+
 function formatSearchObject(search) {
 	//Set a default search location and radius if none entered. 
 	search.keyword = (search.keyword) ? search.keyword : defaultSearch; 
@@ -28,10 +78,16 @@ function getSearchStringTM(search) {
 
 	var searchDateTime = search.startDate.format("YYYY-MM-DDTHH:mm:ssZ");
 	
-	var searchString = "keyword=" + search.keyword + "&startDateTime=" + searchDateTime + "&size=50";
+	var searchString = "&startDateTime=" + searchDateTime + "&size=50";
+	if (search.keyword) searchString += "&keyword=" + encodeURIComponent(search.keyword); 
+	
 	//If radius option is not null
 	if(search.radius) searchString += "&radius=" + search.radius + "&unit=miles";
 	
+	if(tmCategory[search.category]) {
+		console.log('we have a category');
+		searchString += tmCategory[search.category];
+	}
 
 	var latLng;
 	//Get search location coordinates from google maps geocode API
@@ -58,9 +114,12 @@ function getSearchStringTM(search) {
 		    	//IF GEOCODE FAILS, RETURN WASHINGTON DC COORDINATES
 		      console.log('Geocode was not successful for the following reason: ' + status);
 		      latLng = defaultSearchCoords; 
-		    }  
+		    } 
+		    console.log('geocoder results', results);
+		    var stateCode = results[0].address_components[2].short_name;
 
 	  		searchString += "&latlong=" + latLng ;
+			
 			getTicketMasterEvents(searchString);
 		});
 	}
@@ -71,8 +130,8 @@ function getSearchStringTM(search) {
 // ASYNCH AJAX CALL WITHIN FUNCTION
 function getTicketMasterEvents(searchString) {
 	var apiKey = "AA07uZLT1s2Uo0SkmMNcHV4kz22ivu4V";
-	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=" + apiKey + "&" + encodeURIComponent(searchString);
-  
+	var queryURL = "https://app.ticketmaster.com/discovery/v2/events.json?&apikey=" + apiKey + "&" + searchString;
+  	console.log("ticket master search", queryURL);
 	$.ajax({
 		url: queryURL, 
 		method: "GET"
@@ -114,6 +173,19 @@ function getSearchStringEventful(search){
 		}	
 }
 
+function getEventfulCategories(){
+	var oArgs = {
+      app_key: "B3rvtFwc45vjtTFK"
+   };
+
+   	EVDB.API.call("/categories/list", oArgs, function(response) {
+		console.log("eventful response", response);
+		for(var i=0; i<response.category.length; i++) {
+			console.log(response.category[i].id);
+		}
+    });	
+}
+
 //Query Eventful API for event information ## Currently not used ##
 function getEventfulEvents(search) {
 
@@ -128,7 +200,8 @@ function getEventfulEvents(search) {
       page_size: 50,
       sort_order: "popularity",
       within: 10,
-      units : "miles"
+      units : "miles",
+      category: event.category
    };
 
    console.log("eventful search", oArgs);

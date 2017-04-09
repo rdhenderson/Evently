@@ -202,6 +202,8 @@ $("#simple-search-submit").on("click", function(event) {
 	//$.each($("#event-search-form").serializeArray(), function() { search[this.name] = this.value; });
 	search.keyword = $("#simple-search-keyword").val();
 	search.location = $("#simple-search-location").val();
+	search.category = $("#category").val();
+
 	//Clear form data
   	$("#keyword-search-input").val("");
 
@@ -229,7 +231,8 @@ $("#adv-search-submit").on("click", function(event) {
 	var search = {};
 
 	$.each($("#adv-search-form :input").serializeArray(), function() { search[this.name] = this.value; });
-	
+	search.category = $("#category").val();
+
 	console.log('search', search);
 
 	//Clear form data
@@ -273,4 +276,5 @@ var eventArr = [];
 
 $(document).ready(function(){
 	$("#simple-search-keyword").focus();
+	//getEventfulCategories();
 })
